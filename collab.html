@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collab · Chess Club</title>
+  <meta name="description" content="Clubs the Chess Club has collaborated with, including the AI Lab.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='8' fill='%233e6e9e'/%3E%3Cpath fill='%23fbf6ec' d='M10 8h3v3h2V8h2v3h2V8h3v6l-2 2v6h2v3H10v-3h2v-6l-2-2z'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div id="scrollProgress"></div>
+
+  <header id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#3e6e9e"/><path fill="#fbf6ec" d="M10 8h3v3h2V8h2v3h2V8h3v6l-2 2v6h2v3H10v-3h2v-6l-2-2z"/></svg>
+        <span>Chess Club</span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="tournaments.html">Tournaments</a>
+        <a href="puzzles.html">Puzzles</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="collab.html" aria-current="page">Collab</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="board-texture"></div>
+      <div class="container">
+        <span class="eyebrow">Collab</span>
+        <h1>Better together<br>than en prise.</h1>
+        <p class="lede">Chess goes well with almost anything. Here are the clubs we've teamed up with so far.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Past collabs</span>
+          <h2>Who we've played with</h2>
+        </div>
+
+        <article class="collab-feature reveal">
+          <div class="collab-logos">
+            <div class="collab-logo">
+              <img src="assets/chess-club-logo.svg" alt="Chess Club logo">
+              <span>Chess Club</span>
+            </div>
+            <span class="collab-x" aria-hidden="true">×</span>
+            <div class="collab-logo">
+              <img src="assets/ai-lab-logo.webp" alt="AI Lab logo">
+              <span>AI Lab</span>
+            </div>
+          </div>
+          <div class="collab-body">
+            <span class="tag">Collab #1</span>
+            <h3>Chess Club × AI Lab</h3>
+            <p>When the board met the bots: the Chess Club teamed up with the AI Lab to explore how computers think about chess.</p>
+            <p class="todo">Add details: what you did together, when, and how it went.</p>
+          </div>
+        </article>
+
+        <div class="card collab-next reveal">
+          <div class="piece-icon" aria-hidden="true">♞</div>
+          <div>
+            <h3>Your club next?</h3>
+            <p>Run a club and have an idea that involves 64 squares, or even just a few? Talk to the <a href="leadership.html">club leader</a> or stop by a meeting.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer>
+    <div class="container">
+      <a class="nav-logo" href="index.html">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#3e6e9e"/><path fill="#fbf6ec" d="M10 8h3v3h2V8h2v3h2V8h3v6l-2 2v6h2v3H10v-3h2v-6l-2-2z"/></svg>
+        <span>Chess Club</span>
+      </a>
+      <nav aria-label="Footer">
+        <a href="tournaments.html">Tournaments</a><a href="puzzles.html">Puzzles</a><a href="leadership.html">Leadership</a><a href="collab.html">Collab</a>
+      </nav>
+      <p class="footer-small">© <span id="year"></span> Chess Club. Made by students, for students.</p>
+    </div>
+  </footer>
+
+  <script src="js/site.js"></script>
+</body>
+</html>

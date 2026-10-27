@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chess Club</title>
+  <meta name="description" content="Our school's chess club: casual games, puzzles, lessons and tournaments. Everyone is welcome.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='8' fill='%233e6e9e'/%3E%3Cpath fill='%23fbf6ec' d='M10 8h3v3h2V8h2v3h2V8h3v6l-2 2v6h2v3H10v-3h2v-6l-2-2z'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div id="scrollProgress"></div>
+
+  <header id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#3e6e9e"/><path fill="#fbf6ec" d="M10 8h3v3h2V8h2v3h2V8h3v6l-2 2v6h2v3H10v-3h2v-6l-2-2z"/></svg>
+        <span>Chess Club</span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="tournaments.html">Tournaments</a>
+        <a href="puzzles.html">Puzzles</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="collab.html">Collab</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero">
+      <div class="container">
+        <span class="eyebrow">School Chess Club · Est. <span class="todo">20XX</span></span>
+        <h1 class="hero-title">Your move, <em>after school.</em></h1>
+        <p class="lede">Casual games, clever puzzles and the occasional tournament. Whether you've just learned how the knight moves or you're chasing a rating, there's a seat at the board for you.</p>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#join">Join the club</a>
+          <a class="btn btn-secondary" href="puzzles.html">Try a puzzle</a>
+        </div>
+      </div>
+      <div class="hero-board" aria-hidden="true">
+        <span></span><span class="w">♚</span><span></span><span></span>
+        <span></span><span></span><span>♞</span><span></span>
+        <span class="w">♟</span><span></span><span></span><span>♛</span>
+        <span></span><span class="w">♝</span><span></span><span></span>
+      </div>
+      <div class="scroll-hint">Scroll to play</div>
+    </section>
+
+    <!-- Scroll-driven chess animation (drawn in js/board-animation.js) -->
+    <section class="scroll-animation" aria-label="Animated chess game: Légal's mate in seven moves">
+      <div class="scroll-sticky">
+        <canvas id="boardCanvas" aria-hidden="true"></canvas>
+        <div class="move-ticker" aria-hidden="true"></div>
+
+        <div class="annotation-card" data-show="0.22" data-hide="0.33" data-snap="0.27">
+          <div class="card-number">01</div>
+          <div class="card-body">
+            <h3 class="card-title">Every game starts the same</h3>
+            <p class="card-desc">Thirty-two pieces, sixty-four squares, and nobody's ahead yet. That's how we treat new members too. Never played? We'll teach you.</p>
+            <div class="card-stat">
+              <span class="card-stat-number">All levels</span>
+              <span class="card-stat-label">Beginners very welcome</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="annotation-card right" data-show="0.66" data-hide="0.75" data-snap="0.688">
+          <div class="card-number">02</div>
+          <div class="card-body">
+            <h3 class="card-title">Wait, they took the queen?</h3>
+            <p class="card-desc">White just gave away their strongest piece. It's a trap, and we practise spotting tricks like this with weekly puzzles and short lessons.</p>
+            <a class="card-link" href="puzzles.html">Try this week's puzzles →</a>
+          </div>
+        </div>
+
+        <div class="annotation-card" data-show="0.88" data-hide="1" data-snap="0.93">
+          <div class="card-number">03</div>
+          <div class="card-body">
+            <h3 class="card-title">Checkmate in seven.</h3>
+            <p class="card-desc">This is Légal's mate, a trap that's been catching players since the 1700s. Come learn the classics, then try them out at our tournaments.</p>
+            <div class="card-stat">
+              <span class="card-stat-number">7 moves</span>
+              <span class="card-stat-label">Knight, bishop, knight. Game over.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="specs">
+      <div class="container">
+        <div class="specs-grid">
+          <div class="spec-item" data-target="64"><span class="spec-number">0</span><span class="spec-label">squares to explore</span></div>
+          <div class="spec-item" data-target="32"><span class="spec-number">0</span><span class="spec-label">pieces per game</span></div>
+          <div class="spec-item" data-target="7"><span class="spec-number">0</span><span class="spec-label">moves to Légal's mate</span></div>
+          <div class="spec-item" data-target="10"><span class="spec-number">0<sup>120</sup></span><span class="spec-label">possible games, roughly</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tan" id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">What we do</span>
+          <h2>Serious about chess,<br>not about being serious.</h2>
+        </div>
+        <div class="grid grid-4">
+          <div class="card reveal">
+            <div class="piece-icon" aria-hidden="true">♟</div>
+            <h3>Casual play</h3>
+            <p>Grab a board, find an opponent, play. Blitz, rapid, or a slow thinking game. It's up to you.</p>
+          </div>
+          <div class="card reveal">
+            <div class="piece-icon" aria-hidden="true">♝</div>
+            <h3>Lessons</h3>
+            <p>Short, friendly sessions on openings, tactics and endgames, pitched so beginners can keep up.</p>
+          </div>
+          <div class="card reveal">
+            <div class="piece-icon" aria-hidden="true">♞</div>
+            <h3>Puzzles</h3>
+            <p>A fresh set of puzzles to crack each week. Try them on the <a href="puzzles.html">puzzles page</a>.</p>
+          </div>
+          <div class="card reveal">
+            <div class="piece-icon" aria-hidden="true">♜</div>
+            <h3>Tournaments</h3>
+            <p>Club championships and trips to inter-school events. See <a href="tournaments.html">what's coming up</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="info">
+      <div class="container grid grid-2" style="gap:48px;align-items:start">
+        <div class="reveal">
+          <span class="eyebrow">The basics</span>
+          <h2>When &amp; where</h2>
+          <p class="lede">Drop in any week. No sign-up needed for your first visit, and boards are provided.</p>
+        </div>
+        <div class="card reveal">
+          <ul class="info-list">
+            <li><strong>When</strong><span><span class="todo">Day(s), time</span></span></li>
+            <li><strong>Where</strong><span><span class="todo">Room number</span></span></li>
+            <li><strong>Who</strong><span>Any student, any level</span></li>
+            <li><strong>Cost</strong><span>Free</span></li>
+            <li><strong>Bring</strong><span>Yourself. We've got the boards and clocks.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="join" style="padding-top:0">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div>
+            <h2>Pull up a chair.</h2>
+            <p>Come to a meeting, or ask our club leader, <a href="leadership.html" style="color:#fff">Aiden Chan</a>. That's all it takes to join.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="leadership.html">Meet the leader</a>
+            <a class="btn btn-secondary" href="tournaments.html">Tournaments</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <a class="nav-logo" href="index.html">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#3e6e9e"/><path fill="#fbf6ec" d="M10 8h3v3h2V8h2v3h2V8h3v6l-2 2v6h2v3H10v-3h2v-6l-2-2z"/></svg>
+        <span>Chess Club</span>
+      </a>
+      <nav aria-label="Footer">
+        <a href="tournaments.html">Tournaments</a><a href="puzzles.html">Puzzles</a><a href="leadership.html">Leadership</a><a href="collab.html">Collab</a>
+      </nav>
+      <p class="footer-small">© <span id="year"></span> Chess Club. Made by students, for students.</p>
+    </div>
+  </footer>
+
+  <script src="js/site.js"></script>
+  <script src="js/board-animation.js"></script>
+</body>
+</html>

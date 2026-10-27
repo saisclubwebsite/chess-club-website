@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Puzzles · Chess Club</title>
+  <meta name="description" content="Interactive chess puzzles and famous games.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='8' fill='%233e6e9e'/%3E%3Cpath fill='%23fbf6ec' d='M10 8h3v3h2V8h2v3h2V8h3v6l-2 2v6h2v3H10v-3h2v-6l-2-2z'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div id="scrollProgress"></div>
+
+  <header id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#3e6e9e"/><path fill="#fbf6ec" d="M10 8h3v3h2V8h2v3h2V8h3v6l-2 2v6h2v3H10v-3h2v-6l-2-2z"/></svg>
+        <span>Chess Club</span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="tournaments.html">Tournaments</a>
+        <a href="puzzles.html" aria-current="page">Puzzles</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="collab.html">Collab</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="board-texture"></div>
+      <div class="container">
+        <span class="eyebrow">Games &amp; puzzles</span>
+        <h1>Find the move.</h1>
+        <p class="lede">Press play, pick a level, and find the winning move. Click a piece, then the square it should go to.</p>
+      </div>
+    </section>
+
+    <section class="section arcade" id="arcade">
+      <div class="container">
+        <div class="attract" id="attract">
+          <div class="attract-stage">
+            <div class="spin-wrap">
+              <div class="board-frame themed spin-board" id="spinBoard">
+                <div class="board" id="spinGrid" aria-hidden="true"></div>
+              </div>
+            </div>
+            <p class="world-name" id="worldName" aria-live="off"></p>
+          </div>
+          <div class="attract-copy">
+            <span class="eyebrow">Puzzle arcade</span>
+            <h2>Six levels.<br>Six worlds.</h2>
+            <p class="lede">Start in the clubroom and work your way up to the Midnight Observatory. Each level is harder than the last, and solving one unlocks the next.</p>
+            <button class="btn btn-primary btn-play" id="btnPlay" type="button"><span aria-hidden="true">▶</span> Play</button>
+          </div>
+        </div>
+
+        <div id="levels" hidden>
+          <div class="levels-head">
+            <div>
+              <span class="eyebrow">Puzzle arcade</span>
+              <h2>Choose a level</h2>
+            </div>
+            <p id="progressText" class="progress-text"></p>
+          </div>
+          <div class="level-grid" id="levelGrid"></div>
+        </div>
+
+        <div id="game" class="puzzle-layout" hidden>
+          <div class="board-frame themed" id="gameFrame">
+            <div class="board" id="board" role="grid" aria-label="Chess board"></div>
+          </div>
+          <div>
+            <button class="link-back" id="btnBack" type="button">← All levels</button>
+            <span class="eyebrow" id="puzzleLevel"></span>
+            <h2 id="puzzleTitle"></h2>
+            <p id="puzzleFlavor" class="flavor"></p>
+            <p id="puzzlePrompt" class="lede" style="font-size:1.05rem"></p>
+            <div class="puzzle-status" id="puzzleStatus" role="status" aria-live="polite"></div>
+            <div class="puzzle-actions">
+              <button class="btn btn-secondary" id="btnReset" type="button">Reset</button>
+              <button class="btn btn-secondary" id="btnHint" type="button">Hint</button>
+              <button class="btn btn-primary" id="btnNext" type="button" hidden>Next level →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tan">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Famous games</span>
+          <h2>Games worth knowing</h2>
+          <p class="lede">Classics we go over at the club. Look them up and play through them yourself.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card reveal">
+            <div class="piece-icon" aria-hidden="true">♛</div>
+            <h3>The Opera Game</h3>
+            <p>Paul Morphy, Paris 1858. Played in a box at the opera, and a perfect lesson in developing your pieces fast. Level 6 plays its finish.</p>
+          </div>
+          <div class="card reveal">
+            <div class="piece-icon" aria-hidden="true">♞</div>
+            <h3>Légal's Mate</h3>
+            <p>The trap from our home page: a "free" queen that costs the whole game. Level 4 finishes it.</p>
+          </div>
+          <div class="card reveal">
+            <div class="piece-icon" aria-hidden="true">♝</div>
+            <h3>The Immortal Game</h3>
+            <p>Anderssen vs. Kieseritzky, London 1851. White gives up both rooks, a bishop and the queen, and still wins.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer>
+    <div class="container">
+      <a class="nav-logo" href="index.html">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#3e6e9e"/><path fill="#fbf6ec" d="M10 8h3v3h2V8h2v3h2V8h3v6l-2 2v6h2v3H10v-3h2v-6l-2-2z"/></svg>
+        <span>Chess Club</span>
+      </a>
+      <nav aria-label="Footer">
+        <a href="tournaments.html">Tournaments</a><a href="puzzles.html">Puzzles</a><a href="leadership.html">Leadership</a><a href="collab.html">Collab</a>
+      </nav>
+      <p class="footer-small">© <span id="year"></span> Chess Club. Made by students, for students.</p>
+    </div>
+  </footer>
+
+  <script src="js/site.js"></script>
+  <script src="js/puzzles.js"></script>
+</body>
+</html>
