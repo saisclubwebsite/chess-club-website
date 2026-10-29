@@ -272,11 +272,15 @@ p { margin: 0 0 1em; }
 @keyframes hint { 50% { transform: translateY(6px) rotate(45deg); } }
 
 /* ---------- Scroll animation ---------- */
-.scroll-animation { height: 450vh; position: relative; background: var(--bg-blue); }
-.scroll-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; width: 100%; overflow: hidden; }
+.scroll-animation { position: relative; background: var(--bg-blue); }
+.scroll-sticky { position: relative; height: 100vh; height: 100svh; min-height: 560px; max-height: 920px; width: 100%; overflow: hidden; }
+.board-play {
+  position: absolute; left: 50%; bottom: 5vh; transform: translateX(-50%); z-index: 11;
+  border-radius: 100px; padding: 14px 30px; font-size: 1.05rem;
+}
+.board-play:hover { transform: translateX(-50%) translateY(-2px); }
+.board-play.is-playing { background: var(--surface); color: var(--ink); border-color: var(--line); box-shadow: 0 4px 0 var(--line); padding: 10px 22px; font-size: 0.92rem; }
 #boardCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-@media (max-width: 1024px) { .scroll-animation { height: 400vh; } }
-@media (max-width: 768px)  { .scroll-animation { height: 340vh; } }
 
 .move-ticker {
   position: absolute; top: 96px; left: 50%; transform: translateX(-50%);
@@ -321,6 +325,7 @@ p { margin: 0 0 1em; }
   .card-number { margin-bottom: 0; }
   .card-title { font-size: 1.1rem; margin: 0; }
   .move-ticker { top: 84px; }
+  .board-play { bottom: calc(1.5vh + 72px); }
 }
 
 /* ---------- Specs ---------- */
@@ -441,28 +446,53 @@ footer .nav-logo { color: #fff; }
 }
 
 /* ---------- Collab ---------- */
-.collab-feature {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 28px;
-  padding: 40px;
+.partners-hero {
+  position: relative; overflow: hidden;
+  min-height: 100vh; min-height: 100svh;
+  padding: 150px 0 260px;
+  text-align: center;
+  background-color: var(--bg-blue);
+  /* Flat checkerboard, two close tones of pale blue */
+  background-image: repeating-conic-gradient(#dbe6ef 0 25%, transparent 0 50%);
+  background-size: 120px 120px;
+  background-position: center top;
 }
-.collab-logos { display: flex; align-items: center; justify-content: center; gap: 20px; background: var(--bg-blue); border-radius: var(--radius); padding: 32px 20px; }
-.collab-logo { display: flex; flex-direction: column; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
-.collab-logo img { width: 140px; height: 140px; object-fit: contain; background: #fff; border-radius: 24px; padding: 14px; border: 1px solid var(--line); }
-.collab-x { font-family: var(--font-display); font-size: 3rem; color: var(--wood); line-height: 1; }
-.collab-body h3 { font-size: 2rem; margin: 14px 0 12px; }
-.collab-body p { color: var(--muted); }
-.collab-next { display: flex; gap: 20px; align-items: center; margin-top: 20px; }
-.collab-next .piece-icon { margin: 0; flex-shrink: 0; }
-@media (max-width: 800px) {
-  .collab-feature { grid-template-columns: 1fr; padding: 20px; gap: 24px; }
-  .collab-logo img { width: 104px; height: 104px; }
-  .collab-x { font-size: 2.2rem; }
+.partners-hero .container { position: relative; z-index: 1; }
+.partners-title {
+  font-weight: 400; text-transform: uppercase; letter-spacing: 0.08em;
+  font-size: clamp(1.9rem, 4.6vw, 3.2rem); margin-bottom: 18px;
+}
+.partners-lede { font-size: 1.15rem; color: var(--ink); max-width: 56ch; margin: 0 auto 44px; }
+.partner-strip {
+  background: var(--surface); border: 1px solid var(--line);
+  box-shadow: 0 20px 50px rgba(31, 45, 61, 0.1);
+  display: flex; align-items: center; justify-content: space-evenly; gap: 24px;
+  padding: 44px 32px;
+}
+.partner-item { width: min(260px, 36vw); display: grid; place-items: center; }
+.partner-item svg, .partner-item img { width: 100%; height: auto; max-height: 190px; object-fit: contain; }
+.partner-x { font-family: var(--font-display); font-weight: 300; font-size: clamp(3rem, 7vw, 5rem); line-height: 1; color: var(--wood); }
+.partner-caption { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wood-dark); margin: 22px 0 0; }
+
+/* Chess-piece skyline along the bottom */
+.piece-skyline {
+  position: absolute; left: 0; right: 0; bottom: -28px;
+  display: flex; justify-content: center; align-items: flex-end; gap: 0.5vw;
+  font-family: 'Noto Sans Symbols 2', serif; line-height: 1;
+  color: #c3d3e1; pointer-events: none; white-space: nowrap;
+}
+.piece-skyline::after { content: ''; position: absolute; left: 0; right: 0; bottom: 28px; height: 22px; background: #c3d3e1; }
+@media (max-width: 700px) {
+  .partners-hero { padding: 120px 0 170px; background-size: 72px 72px; }
+  .piece-skyline { transform: scale(0.55); transform-origin: bottom center; }
+  .partner-strip { padding: 28px 16px; gap: 10px; }
 }
 
-.leader-feature { display: flex; align-items: center; gap: 32px; text-align: left; max-width: 720px; margin: 0 auto; padding: 40px; }
-.leader-feature .avatar { margin: 0; flex-shrink: 0; width: 120px; height: 120px; font-size: 3.8rem; }
-.leader-feature h3 { font-size: 2rem; }
+.leader-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 980px; margin: 0 auto; }
+@media (max-width: 800px) { .leader-grid { grid-template-columns: 1fr; } }
+.leader-feature { display: flex; align-items: center; gap: 28px; text-align: left; padding: 36px; }
+.leader-feature .avatar { margin: 0; flex-shrink: 0; width: 104px; height: 104px; font-size: 3.2rem; }
+.leader-feature h3 { font-size: 1.8rem; }
 @media (max-width: 600px) { .leader-feature { flex-direction: column; text-align: center; padding: 32px 20px; } }
 
 /* ---------- Puzzle arcade ---------- */

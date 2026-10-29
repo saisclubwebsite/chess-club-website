@@ -1,9 +1,10 @@
-// Scroll-driven chess animation, drawn in code (no video frames).
+// Chess animation, drawn in code (no video frames), played with a button.
 //
-// Scroll progress (0–1) through .scroll-animation is a pure function of the
-// scene: the board swings into view, all 32 pieces drop into place, then
-// Légal's mate plays out move by move and the camera settles overhead.
-// Scrolling back rewinds everything exactly.
+// Progress (0–1) is a pure function of the scene: the board swings into
+// view, all 32 pieces drop into place, then Légal's mate plays out move by
+// move and the camera settles overhead. Pressing Play runs progress from 0
+// to 1 over time, pausing briefly at each annotation card. Nothing is drawn
+// while the animation is idle, so scrolling the page stays smooth.
 (function () {
   const section = document.querySelector('.scroll-animation');
   const canvas = document.getElementById('boardCanvas');
@@ -96,7 +97,7 @@
     cam.unit = (fit / 10.4) * cam.zoom * (mobile ? 0.84 : 1);
     cam.cx = W / 2;
     // Leave room for the ticker on top and compact cards at the bottom on phones
-    cam.cy = H / 2 + (mobile ? -H * 0.03 : H * 0.02);
+    cam.cy = H / 2 - H * (mobile ? 0.06 : 0.04);
   }
 
   // World: x = file - 3.5, z = rank - 3.5 (rank 1 nearest the viewer), y = height
@@ -248,68 +249,82 @@
     }
   }
 
-  // ---------- Scroll mapping, cards, snap-stop ----------
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const HOLD_DURATION = 650;
+  // ---------- Playback, cards, holds ----------
+  const playBtn = document.getElementById('boardPlay');
+  const SPEED = 1 / 13;      // progress per second while moving
+  const HOLD_MS = 1800;      // pause at each card
+  const IDLE_PROGRESS = 0.25; // poster frame: pieces set up, board angled
   const zones = cards.map((card) => ({
     show: parseFloat(card.dataset.show),
     hide: parseFloat(card.dataset.hide),
-    snap: parseFloat(card.dataset.snap),
-    armed: true,
+    hold: parseFloat(card.dataset.hold),
   }));
-  let holding = false;
-  let lastProgress = null;
 
-  function sectionProgress() {
-    const rect = section.getBoundingClientRect();
-    const scrollable = section.offsetHeight - window.innerHeight;
-    return clamp(-rect.top / scrollable);
-  }
-  function scrollToProgress(p) {
-    const top = section.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo(0, top + p * (section.offsetHeight - window.innerHeight));
-  }
-
-  const blockScroll = (e) => { if (holding) e.preventDefault(); };
-  const blockKeys = (e) => {
-    if (holding && ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' ', 'Home', 'End'].includes(e.key)) e.preventDefault();
-  };
-  window.addEventListener('wheel', blockScroll, { passive: false });
-  window.addEventListener('touchmove', blockScroll, { passive: false });
-  window.addEventListener('keydown', blockKeys);
+  let progress = IDLE_PROGRESS;
+  let state = 'idle'; // idle | playing | paused | done
+  let holdUntil = 0, lastTime = 0, rafId = 0, nextHold = 0;
 
   function updateCards(p) {
     cards.forEach((card, i) => {
-      const z = zones[i];
-      card.classList.toggle('visible', p >= z.show && p <= z.hide);
-      if (reduceMotion || holding || lastProgress === null) return;
-      // Snap when the scroll crosses the snap point in either direction
-      const crossed = (lastProgress < z.snap && p >= z.snap) || (lastProgress > z.snap && p <= z.snap);
-      if (z.armed && crossed) {
-        z.armed = false;
-        holding = true;
-        scrollToProgress(z.snap);
-        setTimeout(() => { holding = false; }, HOLD_DURATION);
-      }
-      if (Math.abs(p - z.snap) > 0.04) z.armed = true;
+      card.classList.toggle('visible', state !== 'idle' && p >= zones[i].show && p <= zones[i].hide);
     });
   }
 
-  let frameProgress = -1;
-  let ticking = false;
-  function update() {
-    ticking = false;
-    const p = sectionProgress();
-    updateCards(p);
-    lastProgress = p;
-    if (Math.abs(p - frameProgress) > 1e-5) {
-      frameProgress = p;
-      render(p);
-    }
+  function setButton() {
+    if (!playBtn) return;
+    const labels = { idle: '▶ Play the game', playing: '❚❚ Pause', paused: '▶ Resume', done: '↻ Watch again' };
+    playBtn.textContent = labels[state];
+    playBtn.classList.toggle('is-playing', state === 'playing');
   }
-  window.addEventListener('scroll', () => {
-    if (!ticking) { ticking = true; requestAnimationFrame(update); }
-  }, { passive: true });
+
+  function frame(now) {
+    const dt = Math.min(0.05, (now - lastTime) / 1000);
+    lastTime = now;
+    if (now >= holdUntil) {
+      const before = progress;
+      progress = Math.min(1, progress + dt * SPEED);
+      const z = zones[nextHold];
+      if (z && before < z.hold && progress >= z.hold) {
+        progress = z.hold;
+        holdUntil = now + HOLD_MS;
+        nextHold++;
+      }
+    }
+    render(progress);
+    updateCards(progress);
+    if (progress >= 1) { state = 'done'; setButton(); return; }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function play() {
+    if (state === 'idle' || state === 'done') {
+      progress = 0; nextHold = 0; holdUntil = 0;
+    }
+    state = 'playing';
+    setButton();
+    lastTime = performance.now();
+    // Resume a hold that was interrupted by a pause
+    if (holdUntil) holdUntil = lastTime + Math.max(0, Math.min(HOLD_MS, holdUntil - pausedAt));
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(frame);
+  }
+  let pausedAt = 0;
+  function pause() {
+    pausedAt = performance.now();
+    state = 'paused';
+    cancelAnimationFrame(rafId);
+    setButton();
+  }
+
+  if (playBtn) {
+    playBtn.addEventListener('click', () => (state === 'playing' ? pause() : play()));
+  }
+  // Pause when the board scrolls out of view
+  new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting && state === 'playing') pause();
+  }, { threshold: 0.25 }).observe(section);
+
+  function redraw() { render(progress); updateCards(progress); }
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -317,15 +332,15 @@
     H = canvas.clientHeight;
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
-    frameProgress = -1;
-    update();
+    redraw();
   }
   window.addEventListener('resize', resize);
   resize();
+  setButton();
 
   // Redraw once the chess-piece font has loaded so glyphs are consistent
   if (document.fonts) {
-    document.fonts.load(`48px ${PIECE_FONT}`, GLYPH.k).then(() => { frameProgress = -1; update(); });
-    document.fonts.ready.then(() => { frameProgress = -1; update(); });
+    document.fonts.load(`48px ${PIECE_FONT}`, GLYPH.k).then(redraw);
+    document.fonts.ready.then(redraw);
   }
 })();
