@@ -469,10 +469,17 @@ footer .nav-logo { color: #fff; }
   display: flex; align-items: center; justify-content: space-evenly; gap: 24px;
   padding: 44px 32px;
 }
-.partner-item { width: min(260px, 36vw); display: grid; place-items: center; }
+.partner-item { width: min(230px, 24vw); display: grid; place-items: center; }
 .partner-item svg, .partner-item img { width: 100%; height: auto; max-height: 190px; object-fit: contain; }
 .partner-x { font-family: var(--font-display); font-weight: 300; font-size: clamp(3rem, 7vw, 5rem); line-height: 1; color: var(--wood); }
 .partner-caption { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wood-dark); margin: 22px 0 0; }
+.readmore-btn { margin-top: 28px; background: var(--surface); }
+.collab-stories { display: grid; gap: 16px; margin-top: 28px; text-align: left; animation: pop-in 0.5s var(--ease) both; }
+.story { display: flex; gap: 24px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+.story img { width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; }
+.story h3 { margin-bottom: 8px; }
+.story p { color: var(--muted); margin: 0; }
+@media (max-width: 600px) { .story { flex-direction: column; padding: 22px; gap: 14px; } }
 
 /* Chess-piece skyline along the bottom */
 .piece-skyline {
@@ -485,7 +492,9 @@ footer .nav-logo { color: #fff; }
 @media (max-width: 700px) {
   .partners-hero { padding: 120px 0 170px; background-size: 72px 72px; }
   .piece-skyline { transform: scale(0.55); transform-origin: bottom center; }
-  .partner-strip { padding: 28px 16px; gap: 10px; }
+  .partner-strip { padding: 24px 12px; gap: 6px; }
+  .partner-item { width: 26vw; }
+  .partner-x { font-size: 2.2rem; }
 }
 
 .leader-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 980px; margin: 0 auto; }

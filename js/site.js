@@ -72,6 +72,18 @@
     specObserver.observe(specs);
   }
 
+  // Read more / Read less toggles
+  document.querySelectorAll('.readmore-btn').forEach((btn) => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    if (!panel) return;
+    btn.addEventListener('click', () => {
+      const open = panel.hidden;
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? 'Read less' : 'Read more';
+    });
+  });
+
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 })();

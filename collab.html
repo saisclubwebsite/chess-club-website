@@ -23,7 +23,6 @@
       <button class="nav-toggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
       <nav class="nav-links" id="navLinks" aria-label="Main">
         <a href="index.html">Home</a>
-        <a href="tournaments.html">Tournaments</a>
         <a href="puzzles.html">Puzzles</a>
         <a href="leadership.html">Leadership</a>
         <a href="collab.html" aria-current="page">Collab</a>
@@ -36,13 +35,35 @@
       <div class="piece-skyline" aria-hidden="true"><span style="font-size:90px">♟</span><span style="font-size:150px">♜</span><span style="font-size:170px">♞</span><span style="font-size:100px">♟</span><span style="font-size:190px">♝</span><span style="font-size:230px">♛</span><span style="font-size:250px">♚</span><span style="font-size:190px">♝</span><span style="font-size:100px">♟</span><span style="font-size:170px">♞</span><span style="font-size:150px">♜</span><span style="font-size:90px">♟</span></div>
       <div class="container">
         <h1 class="partners-title">Collaboration Partners</h1>
-        <p class="partners-lede">We teamed up with the AI Lab to design and build this website.</p>
+        <p class="partners-lede">The clubs and groups we team up with, from building this website to running school tournaments.</p>
         <div class="partner-strip reveal">
           <div class="partner-item"><svg class="wordmark" viewBox="0 0 260 210" role="img" aria-label="Chess Club logo"><g transform="translate(82 6) scale(1.5)"><rect width="64" height="64" rx="16" fill="#3e6e9e"/><path fill="#fbf6ec" d="M20 12h5v4h4v-4h6v4h4v-4h5v8l-3 3v13l3 4v3h3v5H17v-5h3v-3l3-4V23l-3-3z"/><rect x="23" y="25" width="18" height="2.5" fill="#3e6e9e"/><rect x="14" y="51" width="6" height="4" fill="#ebd9b9"/><rect x="20" y="51" width="6" height="4" fill="#b88a5c"/><rect x="26" y="51" width="6" height="4" fill="#ebd9b9"/><rect x="32" y="51" width="6" height="4" fill="#b88a5c"/><rect x="38" y="51" width="6" height="4" fill="#ebd9b9"/><rect x="44" y="51" width="6" height="4" fill="#b88a5c"/></g><text x="130" y="150" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="34" font-weight="600" letter-spacing="6" fill="#1f2d3d">CHESS</text><text x="130" y="192" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="34" font-weight="600" letter-spacing="6" fill="#1f2d3d">CLUB</text></svg></div>
           <span class="partner-x" aria-hidden="true">×</span>
           <div class="partner-item"><img src="assets/ai-lab-logo.webp" alt="AI Lab logo"></div>
+          <div class="partner-item"><img src="assets/student-council-logo.png" alt="Student Council logo"></div>
         </div>
-        <p class="partner-caption">Chess Club × AI Lab · Website build</p>
+        <p class="partner-caption">Chess Club × AI Lab · Student Council</p>
+
+        <button class="btn btn-secondary readmore-btn" type="button" aria-expanded="false" aria-controls="collabStories">Read more</button>
+
+        <div class="collab-stories" id="collabStories" hidden>
+          <article class="story">
+            <img src="assets/ai-lab-logo.webp" alt="" aria-hidden="true">
+            <div>
+              <span class="eyebrow">Chess Club × AI Lab</span>
+              <h3>Building this website</h3>
+              <p>This website is a collaboration between the Chess Club and the AI Lab. Chess Club members decided what the site needed: club info, puzzles, the leadership team and our partners. The AI Lab helped turn those ideas into a working site, from the animated chess game on the home page to the puzzle arcade.</p>
+            </div>
+          </article>
+          <article class="story">
+            <img src="assets/student-council-logo.png" alt="" aria-hidden="true">
+            <div>
+              <span class="eyebrow">Chess Club × Student Council</span>
+              <h3>Hosting school tournaments</h3>
+              <p>The Chess Club regularly partners with the Student Council to host tournaments for the whole school. The Student Council helps organise and promote the events, and the Chess Club runs the boards, the pairings and the games. Together we make it easy for any student to sit down and play.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   </main>
@@ -55,7 +76,7 @@
         <span>Chess Club</span>
       </a>
       <nav aria-label="Footer">
-        <a href="tournaments.html">Tournaments</a><a href="puzzles.html">Puzzles</a><a href="leadership.html">Leadership</a><a href="collab.html">Collab</a>
+        <a href="puzzles.html">Puzzles</a><a href="leadership.html">Leadership</a><a href="collab.html">Collab</a>
       </nav>
       <p class="footer-small">© <span id="year"></span> Chess Club. Made by students, for students.</p>
     </div>
